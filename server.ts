@@ -89,7 +89,11 @@ const utils = require('./lib/utils')
 const security = require('./lib/insecurity')
 const datacreator = require('./data/datacreator')
 const app = express()
-const server = require('http').Server(app)
+var options = {
+  key: fs.readFileSync("./certs/private.key"),
+  cert: fs.readFileSync("./certs/server.crt"),
+}
+const server = require('https').createServer(options, app)
 const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
