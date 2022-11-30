@@ -22,8 +22,7 @@ import { ProductModel } from './models/product'
 import { WalletModel } from './models/wallet'
 const startTime = Date.now()
 const path = require('path')
-const Waf = require('mini-waf/wafbase');
-const wafrules = require('mini-waf/wafrules');
+
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const finale = require('finale-rest')
@@ -121,6 +120,8 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
+const helmet = require("helmet");
+
 const appName = config.get('application.customMetricsPrefix')
 const startupGauge = new client.Gauge({
   name: `${appName}_startup_duration_seconds`,
@@ -149,8 +150,7 @@ async function restoreOverwrittenFilesWithOriginals () {
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
 
-//Register the middleware of Mini-WAF with standard rules.
-app.use(Waf.WafMiddleware(wafrules.DefaultSettings));
+app.use(helmet());
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
