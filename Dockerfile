@@ -5,7 +5,7 @@ RUN mkdir -p certs
 RUN openssl req -x509 -days 1000 \
         -newkey rsa:4096 -keyout ./certs/private.key \
         -out ./certs/server.crt \
-        -subj "/C=FR/ST=ARA/L=Grenoble/O=Grenoble INP/OU=Ensimag/CN=monserveur.ensimag.fr/emailAddress=sebastien.viardot@grenoble-inp.fr" \
+        -subj "/C=FR/ST=ARA/L=Grenoble/O=Grenoble INP/OU=Ensimag/CN=monserveur.ensimag.fr/emailAddress=admin@grenoble-inp.fr" \
         -nodes
 RUN npm i -g typescript ts-node
 RUN npm install --omit=dev --unsafe-perm

@@ -22,6 +22,8 @@ import { ProductModel } from './models/product'
 import { WalletModel } from './models/wallet'
 const startTime = Date.now()
 const path = require('path')
+const Waf = require('mini-waf/wafbase');
+const wafrules = require('mini-waf/wafrules');
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const finale = require('finale-rest')
@@ -146,6 +148,9 @@ async function restoreOverwrittenFilesWithOriginals () {
 
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
+
+//Register the middleware of Mini-WAF with standard rules.
+app.use(Waf.WafMiddleware(wafrules.DefaultSettings));
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
