@@ -150,6 +150,27 @@ async function restoreOverwrittenFilesWithOriginals () {
   await collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
 }
 
+var ExpressWaf = require('express-waf');
+
+var emudb = new ExpressWaf.EmulatedDB();
+var waf = new ExpressWaf.ExpressWaf({
+    blocker:{
+        db: emudb,
+        blockTime: 1000
+    },
+    log: true
+});
+
+waf.addModule('csrf-module', {
+    allowedMethods:['GET', 'POST'],
+    refererIndependentUrls: ['/'],
+    allowedOrigins: ['www.example.com']
+}, function (error) {
+    console.log(error);
+});
+
+app.use(waf.check);
+
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
 
