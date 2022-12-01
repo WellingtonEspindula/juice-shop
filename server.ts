@@ -153,8 +153,6 @@ async function restoreOverwrittenFilesWithOriginals () {
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
 
-// app.use(helmet());
-
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
   /* Locals */
@@ -187,7 +185,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   );
   app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
   app.use(helmet.contentSecurityPolicy());
-  app.use(helmet());
 
   /* Hiring header */
   app.use((req: Request, res: Response, next: NextFunction) => {
