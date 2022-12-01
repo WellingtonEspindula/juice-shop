@@ -120,10 +120,9 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
-// const Waf = require('mini-waf/wafbase');
-// const wafrules = require('mini-waf/wafrules');
-
 const helmet = require("helmet");
+
+app.use(helmet());
 
 const appName = config.get('application.customMetricsPrefix')
 const startupGauge = new client.Gauge({
@@ -150,26 +149,6 @@ async function restoreOverwrittenFilesWithOriginals () {
   await collectDurationPromise('restoreOverwrittenFilesWithOriginals', require('./lib/startup/restoreOverwrittenFilesWithOriginals'))()
 }
 
-var ExpressWaf = require('express-waf');
-
-var emudb = new ExpressWaf.EmulatedDB();
-var waf = new ExpressWaf.ExpressWaf({
-    blocker:{
-        db: emudb,
-        blockTime: 1000
-    },
-    log: true
-});
-
-waf.addModule('csrf-module', {
-    allowedMethods:['GET', 'POST'],
-    refererIndependentUrls: ['/'],
-    allowedOrigins: ['www.example.com']
-}, function (error) {
-    console.log(error);
-});
-
-app.use(waf.check);
 
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
@@ -201,7 +180,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Security middleware */
   app.use(helmet.noSniff())
   app.use(helmet.frameguard())
-  // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
+  app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    })
+  );
+  app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
   app.disable('x-powered-by')
   app.use(featurePolicy({
     features: {
