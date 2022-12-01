@@ -28,15 +28,26 @@ import { WalletModelInit } from './wallet'
 
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
+const sequelize = new Sequelize('postegres1', 'postegres1', '^^U98svZH1B3hAHkd#WNrx!ULij$P7pT!Qa^bKO#xx1CNubM29', {
+  dialect: 'postgres',
+  host: 'postegres1.ctw27a5rnusn.us-east-1.rds.amazonaws.com',
+  port: 5432,
   retry: {
-    match: [/SQLITE_BUSY/],
+    match: [
+      /ConnectionError/,
+      /SequelizeConnectionError/,
+      /SequelizeConnectionRefusedError/,
+      /SequelizeHostNotFoundError/,
+      /SequelizeHostNotReachableError/,
+      /SequelizeInvalidConnectionError/,
+      /SequelizeConnectionTimedOutError/,
+      /SequelizeConnectionAcquireTimeoutError/,
+      /Connection terminated unexpectedly/
+    ],
     name: 'query',
     max: 5
   },
   transactionType: 'IMMEDIATE',
-  storage: 'data/juiceshop.sqlite',
   logging: false
 })
 AddressModelInit(sequelize)
