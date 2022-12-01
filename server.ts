@@ -122,7 +122,7 @@ const i18n = require('i18n')
 
 const helmet = require("helmet");
 
-app.use(helmet());
+// app.use(helmet());
 
 const appName = config.get('application.customMetricsPrefix')
 const startupGauge = new client.Gauge({
