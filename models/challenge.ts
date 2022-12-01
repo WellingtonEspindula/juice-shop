@@ -24,7 +24,7 @@ InferCreationAttributes<Challenge>
   declare hint: string | null
   declare hintUrl: string | null
   declare mitigationUrl: CreationOptional<string> | null
-  declare key: string
+  declare key_challenge: string
   declare disabledEnv: CreationOptional<string>
   declare tutorialOrder: CreationOptional<number> | null
   declare tags: string | undefined
@@ -40,7 +40,7 @@ const ChallengeModelInit = (sequelize: Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      key: DataTypes.STRING,
+      key_challenge: DataTypes.STRING,
       name: DataTypes.STRING,
       category: DataTypes.STRING,
       tags: DataTypes.STRING,
