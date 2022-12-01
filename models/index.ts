@@ -32,6 +32,18 @@ const sequelize = new Sequelize('mariadb1', 'mariadb1', '^^U98svZH1B3hAHkd#WNrx!
   host: 'mariadb1.ctw27a5rnusn.us-east-1.rds.amazonaws.com',
   port: 3306,
   dialect: 'mariadb',
+  dialectOptions: {
+    connectTimeout: 3000
+  },
+  pool: {
+    min: 0,
+    max: 5,
+    idle: 10000
+  },
+  define: {
+    charset: 'utf8',
+    timestamps: false
+  },  
   retry: {
     match: [
       /ER_CONNECTION_TIMEOUT/,
@@ -40,7 +52,6 @@ const sequelize = new Sequelize('mariadb1', 'mariadb1', '^^U98svZH1B3hAHkd#WNrx!
     name: 'query',
     max: 5
   },
-  pool: { max: 50, min: 0, acquire: 30000, idle: 300000 },
   transactionType: 'IMMEDIATE',
   logging: false
 })
