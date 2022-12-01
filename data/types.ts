@@ -5,19 +5,19 @@ export interface Challenge extends Model {
   category: string
   description: string
   solved: boolean
-  difficulty: number
+  difficulty: integer
   hint: string
   hintUrl: string
   mitigationUrl?: string
   key: string
   disabledEnv?: string | string[]
-  tutorial?: { order: number }
+  tutorial?: { order: integer }
   tags?: string[]
-  tutorialOrder?: number
+  tutorialOrder?: integer
 }
 
 export interface User extends Model {
-  id: number
+  id: integer
   username?: string
   email: string
   password: string
@@ -27,31 +27,31 @@ export interface User extends Model {
   deletedFlag?: boolean
   profileImage?: string
   securityQuestion?: {
-    id: number
+    id: integer
     answer: string
   }
   feedback?: {
     comment: string
-    rating: number
+    rating: integer
   }
   address?: Address[]
   card?: Card[]
   totpSecret?: string
-  walletBalance?: number
+  walletBalance?: integer
   lastLoginIp?: string
 }
 
 export interface Delivery extends Model {
   name: string
-  price: number
-  deluxePrice: number
-  eta: number
+  price: integer
+  deluxePrice: integer
+  eta: integer
   icon: string
 }
 
 export interface Address extends Model {
   fullName: string
-  mobileNum: number
+  mobileNum: integer
   zipCode: string
   streetAddress: string
   city: string
@@ -61,19 +61,19 @@ export interface Address extends Model {
 
 export interface Card extends Model {
   fullName: string
-  cardNum: number | string
-  expMonth: number
-  expYear: number
+  cardNum: integer | string
+  expMonth: integer
+  expYear: integer
 }
 
 export interface Product extends Model {
-  id: number
+  id: integer
   name: string
   description: string
-  price?: number
-  deluxePrice?: number
-  quantity?: number
-  limitPerUser?: number
+  price?: integer
+  deluxePrice?: integer
+  quantity?: integer
+  limitPerUser?: integer
   image?: string
   reviews?: Review[]
   deletedDate?: string
@@ -96,16 +96,16 @@ export interface Memory extends Model {
   imagePath: string
   caption: string
   user: string
-  geoStalkingMetaSecurityQuestion?: number
+  geoStalkingMetaSecurityQuestion?: integer
   geoStalkingMetaSecurityAnswer?: string
-  geoStalkingVisualSecurityQuestion?: number
+  geoStalkingVisualSecurityQuestion?: integer
   geoStalkingVisualSecurityAnswer?: string
 }
 
 export interface Recycle extends Model {
-  UserId: number
-  quantity: number
-  AddressId: number
+  UserId: integer
+  quantity: integer
+  AddressId: integer
   date: string
   isPickup: boolean
 }
@@ -116,20 +116,20 @@ export interface SecurityQuestion extends Model {
 
 export interface SecurityAnswer extends Model {
   answer: string
-  UserId: number
-  SecurityQuestionId: number
+  UserId: integer
+  SecurityQuestionId: integer
 }
 
 export interface Basket extends Model {
-  id: number
+  id: integer
   Products: Product[]
   coupon: string
 }
 
 export interface BasketItem extends Model {
-  ProductId: number
-  BasketId: number
-  quantity: number
+  ProductId: integer
+  BasketId: integer
+  quantity: integer
 }
 
 export interface Captcha extends Model {
