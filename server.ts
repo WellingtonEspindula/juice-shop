@@ -120,6 +120,9 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
+const Waf = require('mini-waf/wafbase');
+const wafrules = require('mini-waf/wafrules');
+
 const helmet = require("helmet");
 
 const appName = config.get('application.customMetricsPrefix')
@@ -150,11 +153,17 @@ async function restoreOverwrittenFilesWithOriginals () {
 /* Sets view engine to hbs */
 app.set('view engine', 'hbs')
 
-//app.use(helmet());
+// app.use(helmet());
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
   /* Locals */
+  
+  
+  //Register the middleware of Mini-WAF with standard rules.
+  app.use(Waf.WafMiddleware(wafrules.DefaultSettings));
+  
+  
   app.locals.captchaId = 0
   app.locals.captchaReqId = 1
   app.locals.captchaBypassReqTimes = []
