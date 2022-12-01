@@ -120,8 +120,8 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
-const Waf = require('mini-waf/wafbase');
-const wafrules = require('mini-waf/wafrules');
+// const Waf = require('mini-waf/wafbase');
+// const wafrules = require('mini-waf/wafrules');
 
 const helmet = require("helmet");
 
@@ -161,7 +161,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   
   
   //Register the middleware of Mini-WAF with standard rules.
-  app.use(Waf.WafMiddleware(wafrules.DefaultSettings));
+  //app.use(Waf.WafMiddleware(wafrules.DefaultSettings));
   
   
   app.locals.captchaId = 0
