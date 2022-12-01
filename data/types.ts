@@ -9,7 +9,7 @@ export interface Challenge extends Model {
   hint: string
   hintUrl: string
   mitigationUrl?: string
-  key: string
+  key_challenge: string
   disabledEnv?: string | string[]
   tutorial?: { order: integer }
   tags?: string[]
