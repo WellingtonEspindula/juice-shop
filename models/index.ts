@@ -28,10 +28,10 @@ import { WalletModelInit } from './wallet'
 
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('postegres1', 'postegres1', '^^U98svZH1B3hAHkd#WNrx!ULij$P7pT!Qa^bKO#xx1CNubM29', {
-  dialect: 'postgres',
-  host: 'postegres1.ctw27a5rnusn.us-east-1.rds.amazonaws.com',
-  port: 5432,
+const sequelize = new Sequelize('mariadb1', 'mariadb1', '^^U98svZH1B3hAHkd#WNrx!ULij$P7pT!Qa^bKO#', {
+  dialect: 'mariadb',
+  host: 'mariadb1.ctw27a5rnusn.us-east-1.rds.amazonaws.com',
+  port: 3306,
   retry: {
     match: [
       /ConnectionError/,
@@ -42,7 +42,8 @@ const sequelize = new Sequelize('postegres1', 'postegres1', '^^U98svZH1B3hAHkd#W
       /SequelizeInvalidConnectionError/,
       /SequelizeConnectionTimedOutError/,
       /SequelizeConnectionAcquireTimeoutError/,
-      /Connection terminated unexpectedly/
+      /Connection terminated unexpectedly/,
+      /ER_SOCKET_UNEXPECTED_CLOSE/,
     ],
     name: 'query',
     max: 5
