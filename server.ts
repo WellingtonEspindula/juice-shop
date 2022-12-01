@@ -178,13 +178,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Security middleware */
   app.use(helmet.noSniff())
   app.use(helmet.frameguard())
-  app.use(
-  helmet({
-    contentSecurityPolicy: false,
-    })
-  );
-  app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
-  app.use(helmet.contentSecurityPolicy());
+  
 
   /* Hiring header */
   app.use((req: Request, res: Response, next: NextFunction) => {
