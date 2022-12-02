@@ -41,7 +41,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
       },
       name: DataTypes.STRING,
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         set (description: string) {
           if (!utils.disableOnContainerEnv()) {
             challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
@@ -58,7 +58,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
       },
       price: DataTypes.DECIMAL,
       deluxePrice: DataTypes.DECIMAL,
-      image: DataTypes.STRING
+      image: DataTypes.TEXT
     },
     {
       tableName: 'Products',
