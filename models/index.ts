@@ -28,26 +28,21 @@ import { WalletModelInit } from './wallet'
 
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('mariadb1', 'mariadb1', '^^U98svZH1B3hAHkd#WNrx!ULij$P7pT!Qa^bKO#', {
-  host: 'mariadb1.ctw27a5rnusn.us-east-1.rds.amazonaws.com',
-  port: 3306,
-  dialect: 'mariadb',
-  dialectOptions: {
-    connectTimeout: 3000
-  },
-  pool: {
-    min: 0,
-    max: 5,
-    idle: 10000
-  },
-  define: {
-    charset: 'utf8',
-    timestamps: false
-  },  
+const sequelize = new Sequelize('postegres1', 'postegres1', '^^U98svZH1B3hAHkd#WNrx!ULij$P7pT!Qa^bKO#xx1CNubM29', {
+  dialect: 'postgres',
+  host: 'postegres1.ctw27a5rnusn.us-east-1.rds.amazonaws.com',
+  port: 5432,
   retry: {
     match: [
-      /ER_CONNECTION_TIMEOUT/,
-      /ER_SOCKET_UNEXPECTED_CLOSE/,
+      /ConnectionError/,
+      /SequelizeConnectionError/,
+      /SequelizeConnectionRefusedError/,
+      /SequelizeHostNotFoundError/,
+      /SequelizeHostNotReachableError/,
+      /SequelizeInvalidConnectionError/,
+      /SequelizeConnectionTimedOutError/,
+      /SequelizeConnectionAcquireTimeoutError/,
+      /Connection terminated unexpectedly/
     ],
     name: 'query',
     max: 5
