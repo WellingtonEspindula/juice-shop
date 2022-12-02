@@ -120,6 +120,8 @@ const chatbot = require('./routes/chatbot')
 const locales = require('./data/static/locales.json')
 const i18n = require('i18n')
 
+const sqlInjectReject = require('sql-inject-reject');
+
 const helmet = require("helmet");
 
 // app.use(helmet());
@@ -178,8 +180,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Security middleware */
   app.use(helmet.noSniff())
   app.use(helmet.frameguard())
-  app.use(helmet());
-  
+  app.use(sqlInjectReject({ level: 'elevated' }))  
 
   /* Hiring header */
   app.use((req: Request, res: Response, next: NextFunction) => {
